@@ -1,10 +1,13 @@
 package data;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.androbos.calcounter.R;
 
 import java.util.ArrayList;
 
@@ -48,6 +51,38 @@ public class CustomListviewAdapter extends ArrayAdapter<Food> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        View row = convertView;
+        ViewHolder holder = null;
+
+        if (row == null  || (row.getTag() == null)){
+            LayoutInflater inflater = LayoutInflater.from(activity);
+            row = inflater.inflate(layoutResource, null);
+
+            holder = new ViewHolder();
+            holder.foodName = (TextView)row.findViewById(R.id.name);
+            holder.foodDate = (TextView)row.findViewById(R.id.dateText);
+            holder.foodCalories = (TextView)row.findViewById(R.id.calories);
+            row.setTag(holder);
+
+        }else {
+            holder = (ViewHolder)row.getTag();
+        }
+        holder.food = getItem(position);
+        holder.foodName.setText(holder.food.getFoodName());
+        holder.foodDate.setText(holder.food.getRecordDate());
+        holder.foodCalories.setText(String.valueOf(holder.food.getCalories()));
+        row.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+
+
+
+
         return super.getView(position, convertView, parent);
     }
     public class ViewHolder{
