@@ -1,12 +1,15 @@
 package data;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.androbos.calcounter.FoodItemDetailsActivity;
 import com.androbos.calcounter.R;
 
 import java.util.ArrayList;
@@ -71,9 +74,16 @@ public class CustomListviewAdapter extends ArrayAdapter<Food> {
         holder.foodName.setText(holder.food.getFoodName());
         holder.foodDate.setText(holder.food.getRecordDate());
         holder.foodCalories.setText(String.valueOf(holder.food.getCalories()));
+        final ViewHolder finalHolder = holder;
         row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(activity, FoodItemDetailsActivity.class);
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable("userObj", finalHolder.food);
+                i.putExtras(mBundle);
+
+                activity.startActivity(i);
 
 
             }
