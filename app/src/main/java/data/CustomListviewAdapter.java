@@ -75,6 +75,7 @@ public class CustomListviewAdapter extends ArrayAdapter<Food> {
             @Override
             public void onClick(View v) {
 
+
             }
         });
 
@@ -83,7 +84,7 @@ public class CustomListviewAdapter extends ArrayAdapter<Food> {
 
 
 
-        return super.getView(position, convertView, parent);
+        return row;
     }
     public class ViewHolder{
         Food food;
