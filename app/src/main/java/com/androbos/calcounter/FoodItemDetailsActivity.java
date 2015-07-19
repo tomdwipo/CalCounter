@@ -21,7 +21,7 @@ public class FoodItemDetailsActivity extends AppCompatActivity {
     private TextView foodName, calories, dateTaken;
     private Button shareButton;
     private int foodId;
-
+///
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
