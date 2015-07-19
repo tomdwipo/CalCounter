@@ -1,6 +1,8 @@
 package com.androbos.calcounter;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import data.DatabaseHandler;
 import model.Food;
 
 public class FoodItemDetailsActivity extends AppCompatActivity {
@@ -61,8 +64,24 @@ public class FoodItemDetailsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.deleteItem) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(FoodItemDetailsActivity.this);
+            alert.setTitle("Delete?");
+            alert.setMessage("Are you sure you want to delete this item?");
+            alert.setNegativeButton("No", null);
+            alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    DatabaseHandler dba = new DatabaseHandler(getApplicationContext());
+                    dba.deleteFood(foodId);
+                    Toast.makeText(getApplicationContext(),"Food Item Deleted", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(FoodItemDetailsActivity.this, DisplayFoodsActivity.class));
+
+                    FoodItemDetailsActivity.this.finish();
+
+                }
+            });
+            alert.show();
         }
 
         return super.onOptionsItemSelected(item);
